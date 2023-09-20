@@ -1,5 +1,11 @@
 const fs = require('fs');
- 
+const path = require('path');
+const http = require('http');
+const { readFile } = require('fs/promises');
+const express = require('express');
+const bodyParser = require('body-parser');
+
+
 
 let users = [
     { id: 1, name: 'Anvir' },
@@ -7,6 +13,39 @@ let users = [
     { id: 3, name: 'Nicole' },
   ];
   
+  //Read a file using node fs
+  fs.readFile(path.join(__dirname, 'file.txt'), 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log("\nFile 1 Contents:");
+    console.log(data);
+  });
+
+  //Writing in a file using node fs
+  const filePath = "fileTwo.txt"
+  const contentToWrite = "Goodbye World!"
+
+  fs.writeFile(filePath, contentToWrite,(err) =>{
+    if (err){
+      console.error("Error writing into the file:", err);
+    }else{
+      console.log("\nContent has been added to file 2!");
+      console.log("\nUpdated Content in File 2:")
+      console.log(contentToWrite); // displays the updated content in file 2
+    }
+  } )
+
+  // Create a server using HTTP Module, displays a page on http://localhost:3000/ that says "Welcome to my website"
+  http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write("Welcome to my Website")
+    res.end();
+  }).listen(3000);
+  
+  // REST APIs, 
+
+
+  
+
   // Creating a new user
   function generateUserId() {
     const maxId = Math.max(...users.map((user) => user.id));
@@ -73,6 +112,7 @@ let users = [
   for (const user of users) {
     console.log(`User ID: ${user.id}, Name: ${user.name}`);
   }
+  
   
   
   
