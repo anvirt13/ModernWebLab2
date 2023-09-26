@@ -9,3 +9,10 @@ file.txt and fileTwo.txt use node.fs to read and write in a text file.
 fileOperations.js is updated to create an http server. 
 
 App.js is a Restful API that has 3 students with their IDs and name stored inside. 
+
+The updated Restful API displays multiple student with their grades with the use of a button.
+
+    - If the user clicks "Show Students", it displays the students in order from their ID, with student number 1 at the top, and student number 7. 
+
+    - If the user clicks "Show by Grade", it displays the students in order of their grade, with the student with the highest grade being displayed at the top, and the student with the lowest grade on the bottom.
+
