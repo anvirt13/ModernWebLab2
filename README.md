@@ -16,3 +16,5 @@ The updated Restful API displays multiple student with their grades with the use
 
     - If the user clicks "Show by Grade", it displays the students in order of their grade, with the student with the highest grade being displayed at the top, and the student with the lowest grade on the bottom.
 
+
+With the new updates from Mini Project 3, the app.js file now has async/await implemented to it for a better code strucutre. There are also event loops and more advanced error handling. 
