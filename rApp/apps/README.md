@@ -8,7 +8,6 @@ Features:
 - The CRUD portion of the app allows you to choose an existing .txt file from your computer and edit it/view it's contents. It also allows you to create a brand new app that you can name and once created, it shows the files in the "All Files" section where you can edit & delete them. 
 
 Code Structure:
-- App.js: The main React component for student data management and the user interface.
-- CrudApp.js: A React component providing text file CRUD functionality.
-- fileOperations.js: Server-side code using Express, serving HTML pages, and simulating student data management.
-- stylesheet.css: The CSS stylesheet defining the application's visual style.
+- App.js: The main React component for student data management.
+- CrudApp.js: A React component for text file CRUD operations.
+- fileOperations.js: The Express.js server for serving API endpoints and handling text file operations.

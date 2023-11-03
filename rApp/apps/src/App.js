@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import CrudApp from './crudApp.js';
-import './stylesheet.css'; 
+import './stylesheet.css';
 
+// Functional component using hooks
 function App() {
   const [students, setStudents] = useState([]);
   const [newStudentName, setNewStudentName] = useState('');
@@ -105,20 +106,41 @@ function App() {
 
       <div className="app-section">
         <h2>Student Data</h2>
-        <ul className="app-file-list">
-          {sortedStudents.map((student) => (
-            <li key={student.id}>
-              <strong>{student.name}</strong> | current grade is {student.grade}
-            </li>
-          ))}
-        </ul>
+        <StudentList students={sortedStudents} sortByName={sortByName} sortByGrade={sortByGrade} />
       </div>
 
       <div className="app-section">
-        <CrudApp/>
+        <CrudApp />
       </div>
     </div>
   );
+}
+
+// Class component for rendering students with conditional sorting
+class StudentList extends Component {
+  render() {
+    const { students, sortByName, sortByGrade } = this.props;
+    const sortedStudents = [...students];
+
+    if (sortByName) {
+      sortedStudents.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (sortByGrade) {
+      const gradeOrder = { A: 0, B: 1, C: 2, D: 3, F: 4 };
+      sortedStudents.sort((a, b) => gradeOrder[a.grade] - gradeOrder[b.grade]);
+    }
+
+    return (
+      <ul className="app-file-list">
+        {sortedStudents.map((student) => (
+          <li key={student.id}>
+            <strong>{student.name}</strong> | current grade is {student.grade}
+          </li>
+        ))}
+      </ul>
+    );
+  }
 }
 
 export default App;

@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
+const fs = require('fs');
+const path = require('path');
 
 app.use(cors());
 app.use(express.json());
@@ -16,8 +18,8 @@ const students = [
   { id: 5, name: 'Emily', grade: 'B' },
   { id: 6, name: 'Lizz', grade: 'D' },
   { id: 7, name: 'Sam', grade: 'C' },
-  {id: 8, name: 'Alex', grade: 'F'},
-  {id: 9, name: 'Zion', grade:'A'}
+  { id: 8, name: 'Alex', grade: 'F'},
+  { id: 9, name: 'Zion', grade:'A'}
 
 ];
 
@@ -26,6 +28,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something broke!' });
 });
+
 
 // Main page with buttons
 app.get('/', (req, res) => {
@@ -52,6 +55,51 @@ JSON</button>
     </body>
     </html>
   `);
+});
+
+// Directory to store text files
+const fileDirectory = path.join(__dirname, 'textFiles');
+if (!fs.existsSync(fileDirectory)) {
+  fs.mkdirSync(fileDirectory);
+}
+
+// Serve text files
+app.get('/textFiles/:fileName', async (req, res) => {
+  const fileName = req.params.fileName;
+  const filePath = path.join(fileDirectory, fileName);
+
+  try {
+    const data = await fs.readFile(filePath, 'utf8'); // Use await with fs.readFile
+    res.send(data);
+  } catch (error) {
+    res.status(404).send('File not found');
+  }
+});
+
+app.post('/textFiles/:fileName', async (req, res) => {
+  const fileName = req.params.fileName;
+  const filePath = path.join(fileDirectory, fileName);
+
+  const content = req.body.content;
+
+  try {
+    await fs.writeFile(filePath, content); // Use await with fs.writeFile
+    res.send('File updated successfully.');
+  } catch (error) {
+    res.status(500).send('Error writing the file.');
+  }
+});
+
+app.delete('/textFiles/:fileName', async (req, res) => {
+  const fileName = req.params.fileName;
+  const filePath = path.join(fileDirectory, fileName);
+
+  try {
+    await fs.unlink(filePath); // Use await with fs.unlink
+    res.send('File deleted successfully.');
+  } catch (error) {
+    res.status(500).send('Error deleting the file.');
+  }
 });
 
 // Add Student Page
@@ -104,10 +152,27 @@ const simulateAsyncOperation = (callback) => {
 
 // API endpoint for students (renamed to /api/students)
 v1Router.get('/api/students', async (req, res) => {
-  // Simulate an asynchronous operation, e.g., a database query
-  simulateAsyncOperation(() => {
-    res.json(students);
-  });
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+
+  // Calculate the starting index and ending index based on pagination parameters
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = page * pageSize;
+
+  // Get a subset of students based on pagination
+  const studentsSubset = students.slice(startIndex, endIndex);
+
+  // If a grade query parameter is provided, filter students by grade
+  const { grade } = req.query;
+  if (grade) {
+    const filteredStudents = studentsSubset.filter((student) => student.grade === grade);
+    res.json(filteredStudents);
+  } else {
+    // If no filter is applied, return the paginated students
+    simulateAsyncOperation(() => {
+      res.json(studentsSubset);
+    });
+  }
 });
 
 // Add a new student to the students array
