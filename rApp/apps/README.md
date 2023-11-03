@@ -11,3 +11,6 @@ Code Structure:
 - App.js: The main React component for student data management.
 - CrudApp.js: A React component for text file CRUD operations.
 - fileOperations.js: The Express.js server for serving API endpoints and handling text file operations.
+
+CodeClimate Summary: 
+- Maintaiability: B
