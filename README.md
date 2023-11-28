@@ -1,18 +1,33 @@
-Student Data Project
 
-Features: 
-- This program allows you to read and log students and their grades in the database system.
+Certainly! Here's a simplified text version of the README:
 
-- Users are allowed to sort students by either their first name in alphabetical order, or sort students by their grades from highest (A) to lowest (F).
+Student Data Management System
+Overview:
+fileOperations.js: Backend server logic using Express.js for handling student data. Connects to MongoDB, manages student records, and provides APIs for fetching and sorting student data.
 
-- The CRUD portion of the app allows you to choose an existing .txt file from your computer and edit it/view it's contents. It also allows you to create a brand new app that you can name and once created, it shows the files in the "All Files" section where you can edit & delete them. 
+app.js: Frontend React application managing student data. Enables adding students, sorting by name or grade, and displaying the data.
 
-Code Structure:
-- App.js: This is the main React component responsible for managing student data and displaying the user interface. It includes features for adding students and sorting the student list.
+crudApp.js: Handles CRUD operations for text files using React hooks. Allows creating, editing, saving, and deleting text files.
 
-- CrudApp.js: A React component that facilitates CRUD (Create, Read, Update, Delete) operations on text files. Users can create, edit, save, and delete text files. This component uses a custom hook called useTextFileManagement to manage file-related operations and state.
+Usage:
+Install Dependencies: npm install
+Start Server: node fileOperations.js
+Start React App: npm start
+Access the app at http://localhost:3000 in the browser.
 
-- fileOperations.js: This file sets up an Express.js server to serve API endpoints and manage text file operations. It handles routes for serving and managing text files and provides an API for student data. Error handling is also incorporated.
+Features:
+Backend (fileOperations.js):
 
-CodeClimate Summary: 
-- Maintaiability: B
+Manages student data using MongoDB.
+Provides endpoints for adding, fetching, and sorting students.
+Frontend (app.js):
+
+Allows adding new students and sorting data.
+Fetches and displays student data.
+Text File Management (crudApp.js):
+
+Manages CRUD operations for text files.
+Creates, edits, saves, and deletes text files.
+Technologies:
+Backend: Node.js, Express.js, MongoDB
+Frontend: React.js

@@ -27,7 +27,7 @@ function App() {
     async function fetchStudentData() {
       try {
         // Update the URL as needed
-        const response = await fetch('http://localhost:3000/v1/api/students');
+        const response = await fetch('http://localhost:3002/v1/api/students');
         const data = await response.json();
         setStudents(data);
       } catch (error) {
