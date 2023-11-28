@@ -1,6 +1,3 @@
-
-Certainly! Here's a simplified text version of the README:
-
 Student Data Management System
 Overview:
 fileOperations.js: Backend server logic using Express.js for handling student data. Connects to MongoDB, manages student records, and provides APIs for fetching and sorting student data.
