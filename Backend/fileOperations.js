@@ -28,6 +28,17 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Something broke!' });
 });
 
+// Importing route files
+const courseRoutes = require('./routes/courseRoutes');
+const gradeRoutes = require('./routes/gradeRoutes');
+const studentRoutes = require('./routes/studentRoutes');
+
+// Use route files
+app.use('/api', courseRoutes);
+app.use('/api', gradeRoutes);
+app.use('/api', studentRoutes);
+
+
 // Main page with buttons
 app.get('/', (req, res) => {
     res.send(`
@@ -37,7 +48,7 @@ app.get('/', (req, res) => {
           <title>Student Data Page</title>
         </head>
         <body>
-          <h1>Hello, World!</h1>
+          <h1> Student API </h1>
           <button onclick="redirectToApiStudents()">Fetch Student Data as JSON</button>
           <button onclick="redirectToStudentsPage()">Add Student</button>
           <pre id="jsonResult"></pre>
@@ -56,46 +67,48 @@ app.get('/', (req, res) => {
 
 // Add Student Page
 app.get('/addStudent', (req, res) => {
-    res.send(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Add Student</title>
-        </head>
-        <body>
-            <h1>Add Student</h1>
-            <form action="/addStudent" method="post">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" required><br><br>
-                <label for="grade">Grade:</label>
-                <input type="text" name="grade" id="grade" required><br><br>
-                <input type="submit" value="Add Student">
-                <button type="button" onclick="redirectToMainPage()">Back</button>
-            </form>
-            <script>
-                function redirectToMainPage() {
-                    window.location.href = '/';
-                }
-            </script>
-        </body>
-        </html>
-    `);
+  res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Add Student</title>
+      </head>
+      <body>
+          <h1>Add Student</h1>
+          <form action="/addStudent" method="post">
+              <label for="name">Name:</label>
+              <input type="text" name="name" id="name" required><br><br>
+              <label for="grade">Grade:</label>
+              <input type="text" name="grade" id="grade" required><br><br>
+              <label for="course">Course:</label>
+              <input type="text" name="course" id="course" required><br><br>
+              <input type="submit" value="Add Student">
+              <button type="button" onclick="redirectToMainPage()">Back</button>
+          </form>
+          <script>
+              function redirectToMainPage() {
+                  window.location.href = '/';
+              }
+          </script>
+      </body>
+      </html>
+  `);
 });
 
 // Handle Add Student Form Submission
 app.post('/addStudent', async (req, res) => {
-    const { name, grade } = req.body;
-    if (name && grade) {
-        const newStudent = { name, grade };
+  const { name, grade, course } = req.body;
+  if (name && grade && course) {
+      const newStudent = { name, grade, course };
 
-        // Add the student to MongoDB
-        const collection = db.collection('students');
-        await collection.insertOne(newStudent);
+      // Add the student to MongoDB
+      const collection = db.collection('students');
+      await collection.insertOne(newStudent);
 
-        res.redirect('/addStudent');
-    } else {
-        res.send('Both name and grade are required.');
-    }
+      res.redirect('/addStudent');
+  } else {
+      res.send('Name, grade, and course are required.');
+  }
 });
 
 // API Version 1
