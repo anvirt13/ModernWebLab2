@@ -1,3 +1,4 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
@@ -5,42 +6,54 @@ body {
   padding: 0;
 }
 
+/* Header Styles */
 .app-title {
   background-color: #007BFF;
   color: #fff;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
 }
 
+/* Section Styles */
 .app-section {
   margin: 20px;
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Input Styles */
 input[type="text"] {
   width: 100%;
   max-width: 300px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  
 }
 
+
+
+/* Button Styles */
 .app-button {
   background-color: #007BFF;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 5px;
+  padding: 12px 24px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .app-button:hover {
-  background-color: #7a00b3;
+  background-color: #005FAB;
 }
 
+/* File List Styles */
 .app-file-list {
   list-style: none;
   padding: 0;
@@ -50,8 +63,8 @@ input[type="text"] {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
   cursor: pointer;
   transition: background-color 0.3s;
 }

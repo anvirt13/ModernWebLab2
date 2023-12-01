@@ -8,13 +8,13 @@ function CrudApp() {
     fileContent,
     editedText,
     isEditing,
-    newFileName,
     handleFileChange,
     createFile,
     selectFile,
     editFile,
     saveFile,
     deleteFile,
+    newFileName,
     setNewFileName,
     setEditedText,
   } = useTextFileManagement(); // Custom hook
@@ -34,7 +34,7 @@ function CrudApp() {
           value={newFileName}
           onChange={(e) => setNewFileName(e.target.value)}
         />
-        <button onClick={createFile}>Create</button>
+        <button className="app-button" onClick={createFile}>Create</button>
       </div>
 
       <div>
@@ -42,14 +42,14 @@ function CrudApp() {
         {isEditing ? (
           <div>
             <textarea value={editedText} onChange={(e) => setEditedText(e.target.value)} />
-            <button onClick={saveFile}>Save</button>
+            <button className="app-button" onClick={saveFile}>Save</button>
           </div>
         ) : (
           <div>
             <div>Content:</div>
             <pre>{fileContent}</pre>
-            <button onClick={editFile}>Edit</button>
-            <button onClick={deleteFile}>Delete</button>
+            <button className="app-button" onClick={editFile}>Edit</button>
+            <button className="app-button" onClick={deleteFile}>Delete</button>
           </div>
         )}
       </div>

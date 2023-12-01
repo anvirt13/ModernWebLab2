@@ -73,39 +73,16 @@ function App() {
     <div className="app-container">
       <h1 className="app-title">Student Grade Data</h1>
 
-      <div className="app-section">
-        <h2>Add Student</h2>
-        <input
-          type="text"
-          name="newStudentName"
-          value={newStudentName}
-          onChange={(e) => setNewStudentName(e.target.value)}
-          placeholder="Enter student name"
-        />
-        <input
-          type="text"
-          name="newStudentGrade"
-          value={newStudentGrade}
-          onChange={(e) => setNewStudentGrade(e.target.value.toUpperCase())}
-          placeholder="Enter student grade"
-        />
-        <button className="app-button" onClick={handleAddStudent}>
-          Add Student
-        </button>
-      </div>
+    
 
       <div className="app-section">
-        <h2>Sort Students</h2>
+        <h2>Student Data</h2>
         <button className="app-button" onClick={toggleSortByName}>
           Show Students by Name
         </button>
         <button className="app-button" onClick={toggleSortByGrade}>
           Show Students by Grade
         </button>
-      </div>
-
-      <div className="app-section">
-        <h2>Student Data</h2>
         <StudentList students={sortedStudents} sortByName={sortByName} sortByGrade={sortByGrade} />
       </div>
 

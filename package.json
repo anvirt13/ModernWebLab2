@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "mongodb": "^6.3.0"
+    "@babel/plugin-proposal-private-property-in-object": "",
+    "express-validator": "^7.0.1",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.2"
   }
 }
