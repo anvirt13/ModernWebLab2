@@ -1,30 +1,52 @@
-Student Data Management System
-Overview:
-fileOperations.js: Backend server logic using Express.js for handling student data. Connects to MongoDB, manages student records, and provides APIs for fetching and sorting student data.
+Student Grade Management System 
 
-app.js: Frontend React application managing student data. Enables adding students, sorting by name or grade, and displaying the data.
+- Overview
+    This project is a React-based Student Grade Management System that allows users to perform CRUD operations on student data, including adding, updating, deleting, and retrieving student information. The system provides a user interface to manage text files and interact with a MongoDB database via an Express backend.
 
-crudApp.js: Handles CRUD operations for text files using React hooks. Allows creating, editing, saving, and deleting text files.
+- Components
+App Component (App.js)
+    Manages the state for student data, new student details, and sorting preferences.
+    Fetches student data from a MongoDB database using asynchronous calls.
+    Renders buttons to toggle sorting by student name or grade.
+    Integrates the StudentList component to display sorted student data.
+    Includes a section with the CrudApp component to manage text files.
+    
+    StudentList Component (App.js)
+    Receives student data and sorting preferences as props.
+    Sorts and displays the list of students based on name or grade, depending on the selected sorting preference.
 
-Usage:
-Install Dependencies: npm install
-Start Server: node fileOperations.js
-Start React App: npm start
-Access the app at http://localhost:3000 in the browser.
+    CRUD App Component (crudApp.js)
+    Implements a CRUD system for text files.
+    Allows users to create, edit, save, delete, and view text files.
+    Manages file selection, content editing, and file creation.
 
-Features:
-Backend (fileOperations.js):
+    Text File Management Custom Hook (useTextFileManagement.js)
+    Provides functionality to manage text files using React hooks.
+    Manages file creation, selection, editing, saving, and deletion.
 
-Manages student data using MongoDB.
-Provides endpoints for adding, fetching, and sorting students.
-Frontend (app.js):
+- Backend Functionality
+    MongoDB Integration (fileOperations.js)
+    Sets up a connection to MongoDB using the MongoClient in Express.
+    Defines API endpoints for handling student data operations, such as adding, retrieving, updating, and deleting students.
 
-Allows adding new students and sorting data.
-Fetches and displays student data.
-Text File Management (crudApp.js):
+    Express Routes (studentRoutes.js, gradeRoutes.js, courseRoutes.js)
+    Define routes and corresponding handlers for CRUD operations on students, grades, and courses.
 
-Manages CRUD operations for text files.
-Creates, edits, saves, and deletes text files.
-Technologies:
-Backend: Node.js, Express.js, MongoDB
-Frontend: React.js
+    Utilizes MongoDB models (Student, Grade, Course) for interacting with the database.
+    
+    MongoDB Models (Student.js, Grade.js, Course.js)
+    Define schemas and models for Student, Grade, and Course entities using Mongoose for MongoDB interactions.
+
+Running the Project
+To run the project locally:
+
+Install dependencies using npm install in both the frontend and backend directories.
+Start the backend server using npm start in the backend directory.
+Start the React app using npm start in the frontend directory.
+Access the application in your web browser at http://localhost:3000.
+
+- Notes
+   - Ensure MongoDB is running and accessible for proper integration.
+   - Modify MongoDB connection settings in fileOperations.js as needed.
+   - Customize validation and error handling in Express routes          according to specific requirements.
+
