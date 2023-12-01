@@ -112,7 +112,7 @@ class StudentList extends Component {
       <ul className="app-file-list">
         {sortedStudents.map((student) => (
           <li key={student.id}>
-            <strong>{student.name}</strong> | current grade is {student.grade}
+            <strong>{student.name}</strong> | Course: {student.course} | Grade: {student.grade}
           </li>
         ))}
       </ul>
