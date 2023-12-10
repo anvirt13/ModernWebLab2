@@ -1,14 +1,17 @@
 import React, { useState, useEffect, Component } from 'react';
 import CrudApp from './crudApp.js';
 import './stylesheet.css';
+import LoginForm from './Login/LoginForm.js';
+import RegisterForm from './Login/RegisterForm.js';
+
 
 // Functional component using hooks
 function App() {
   const [students, setStudents] = useState([]);
-  const [newStudentName, setNewStudentName] = useState('');
-  const [newStudentGrade, setNewStudentGrade] = useState('');
   const [sortByName, setSortByName] = useState(false);
   const [sortByGrade, setSortByGrade] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); 
+  const [username, setUsername] = useState(''); 
 
   const toggleSortByName = () => {
     setSortByName(!sortByName);
@@ -21,13 +24,12 @@ function App() {
   };
 
   // Regular expression for matching A, B, C, D, or F
-  const gradePattern = /^[ABCDF]$/;
 
   useEffect(() => {
     async function fetchStudentData() {
       try {
         // Update the URL as needed
-        const response = await fetch('https://backendminiproject7.onrender.com/v1/api/students');
+        const response = await fetch('http://localhost:3005/v1/api/students');
         const data = await response.json();
         setStudents(data);
       } catch (error) {
@@ -38,22 +40,7 @@ function App() {
     fetchStudentData();
   }, []);
 
-  const handleAddStudent = () => {
-    if (!newStudentName || !gradePattern.test(newStudentGrade)) {
-      alert('Please enter both a name and a valid grade (A, B, C, D, or F).');
-      return;
-    }
 
-    const newStudent = {
-      id: students.length + 1,
-      name: newStudentName,
-      grade: newStudentGrade,
-    };
-
-    setStudents((prevStudents) => [...prevStudents, newStudent]);
-    setNewStudentName('');
-    setNewStudentGrade('');
-  };
 
   const sortedStudents = [...students];
 
@@ -68,12 +55,38 @@ function App() {
       return gradeOrder[a.grade] - gradeOrder[b.grade];
     });
   }
+  
+   // Function to handle successful login
+   const handleSuccessfulLogin = (username) => {
+    setLoggedIn(true);
+    setUsername(username);
+  };
+
+  const handleLogout = () => {
+    setUsername('');
+    setLoggedIn(false);
+  };
 
   return (
     <div className="app-container">
       <h1 className="app-title">Student Grade Data</h1>
 
-    
+      <div className="app-container">
+        {loggedIn ? (
+          <div>
+            <h3 className='app-subtitle'>Welcome, {username}!             <button className="app-button" onClick={handleLogout}>
+              Logout
+            </button></h3>
+
+          </div>
+        ) : (
+          <div>
+            <LoginForm handleSuccessfulLogin={handleSuccessfulLogin} />
+            <hr />
+            <RegisterForm />
+          </div>
+        )}
+    </div>
 
       <div className="app-section">
         <h2>Student Data</h2>

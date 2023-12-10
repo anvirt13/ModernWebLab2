@@ -14,6 +14,14 @@ body {
   padding: 15px;
 }
 
+/* Header Styles */
+.app-subtitle {
+  background-color: #c8dffb;
+  color: rgb(134, 160, 190);
+  text-align: center;
+  padding: 15px;
+}
+
 /* Section Styles */
 .app-section {
   margin: 20px;

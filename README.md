@@ -1,52 +1,73 @@
-Student Grade Management System 
+## Project Overview: Student Data Management System
+This repository combines the frontend and backend components for a comprehensive student data management system. Below, you'll find details about both the frontend and backend structures, functionalities, and setup instructions.
 
-- Overview
-    This project is a React-based Student Grade Management System that allows users to perform CRUD operations on student data, including adding, updating, deleting, and retrieving student information. The system provides a user interface to manage text files and interact with a MongoDB database via an Express backend.
+## Frontend Codebase Overview
+The frontend repository houses components responsible for handling student data, user authentication, file management, and CRUD operations.
 
-- Components
-App Component (App.js)
-    Manages the state for student data, new student details, and sorting preferences.
-    Fetches student data from a MongoDB database using asynchronous calls.
-    Renders buttons to toggle sorting by student name or grade.
-    Integrates the StudentList component to display sorted student data.
-    Includes a section with the CrudApp component to manage text files.
-    
-    StudentList Component (App.js)
-    Receives student data and sorting preferences as props.
-    Sorts and displays the list of students based on name or grade, depending on the selected sorting preference.
+## Components
+Login and Registration
+LoginForm.js: Manages user login functionality.
+RegisterForm.js: Handles user registration.
+App and Student Data
+App.js: Main component orchestrating data retrieval and display.
+StudentList: Component to render student data with sorting options.
+CRUD Operations
+crudApp.js: Provides a CRUD system for text files, enabling file creation, editing, deletion, and display.
+Text File Management
+useTextFileManagement.js: Custom hook handling text file operations.
+Usage
 
-    CRUD App Component (crudApp.js)
-    Implements a CRUD system for text files.
-    Allows users to create, edit, save, delete, and view text files.
-    Manages file selection, content editing, and file creation.
 
-    Text File Management Custom Hook (useTextFileManagement.js)
-    Provides functionality to manage text files using React hooks.
-    Manages file creation, selection, editing, saving, and deletion.
+# Installation
+To run the frontend:
+Clone this repository.
+Navigate to the frontend directory.
+Run npm install to install dependencies.
+Run npm start to start the development server.
+Important Notes
+Ensure proper backend API endpoints 
+(http://localhost:3005/auth/login, 
+http://localhost:3005/auth/register,
+http://localhost:3005/v1/api/students) are available and correctly configured.
+Backend connectivity is necessary for the app to function correctly.
 
-- Backend Functionality
-    MongoDB Integration (fileOperations.js)
-    Sets up a connection to MongoDB using the MongoClient in Express.
-    Defines API endpoints for handling student data operations, such as adding, retrieving, updating, and deleting students.
+## Folder Structure
+# The frontend directory structure is organized as follows:
+src/
+    Login/: Contains login and registration components.
+    crudApp.js: Manages CRUD operations for text files.
+    useTextFileManagement.js: Custom hook for text file management.
+    App.js: Main component orchestrating data and rendering.
+Backend Overview
+The backend repository serves as an API for managing student data, courses, grades, and user authentication. It's built using Node.js with Express.js as the framework and MongoDB as the database.
 
-    Express Routes (studentRoutes.js, gradeRoutes.js, courseRoutes.js)
-    Define routes and corresponding handlers for CRUD operations on students, grades, and courses.
+# Installation
 
-    Utilizes MongoDB models (Student, Grade, Course) for interacting with the database.
-    
-    MongoDB Models (Student.js, Grade.js, Course.js)
-    Define schemas and models for Student, Grade, and Course entities using Mongoose for MongoDB interactions.
+To set up the backend locally:
+- Clone this repository.
+- Run npm install to install dependencies.
+- Ensure MongoDB is installed and running.
+- Set up a .env file with required environment variables (if any).
 
-Running the Project
-To run the project locally:
+# Project Structure
 
-Install dependencies using npm install in both the frontend and backend directories.
-Start the backend server using npm start in the backend directory.
-Start the React app using npm start in the frontend directory.
-Access the application in your web browser at http://localhost:3000.
+## The backend consists of various components handling different functionalities:
 
-- Notes
-   - Ensure MongoDB is running and accessible for proper integration.
-   - Modify MongoDB connection settings in fileOperations.js as needed.
-   - Customize validation and error handling in Express routes          according to specific requirements.
+# File Operations
+    fileOperations.js: Core logic and configurations for the backend application.
+    Models
+    Course.js: Defines the schema for the Course model.
+    Grade.js: Defines the schema for the Grade model.
+    Student.js: Defines the schema for the Student model.
+    User.js: Defines the schema for the User model and handles user authentication.
+    Routes
+    authRoutes.js: Manages user authentication, registration, login, and logout.
+    courseRoutes.js: Handles CRUD operations for courses.
+    gradeRoutes.js: Handles CRUD operations for grades.
+    studentRoutes.js: Handles CRUD operations for students.
+# Usage
+     The backend offers various API endpoints for different operations related to users, students, courses, and grades.
 
+# Running the Server
+     Run npm start to start the server.
+     The server will run on http://localhost:3005 
