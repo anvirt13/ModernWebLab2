@@ -66,12 +66,21 @@ To set up the backend locally:
     gradeRoutes.js: Handles CRUD operations for grades.
     studentRoutes.js: Handles CRUD operations for students.
 
-# Modifications for Mini-Project 10:
+# HTTPS Implementation:
 
-    - Added HTTPs
-    - JwtAuth token
-    - server keys
+Configured the server to utilize HTTPS for secure connections.
+Ensured SSL certificate validity and proper configuration.
+Addressed SSL protocol 
 
+# JWT Authentication (JwtAuth):
+
+Implemented JWT (JSON Web Tokens) authentication for secure user authentication.
+Utilized tokens for user authorization, ensuring secure access to protected routes.
+
+# Serrver Keys:
+
+Safeguarded and managed server keys used for encryption and decryption.
+Ensured proper handling and protection of sensitive server keys for security purposes.
 
 # Usage
      The backend offers various API endpoints for different operations related to users, students, courses, and grades.
