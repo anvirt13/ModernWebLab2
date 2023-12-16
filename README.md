@@ -65,6 +65,14 @@ To set up the backend locally:
     courseRoutes.js: Handles CRUD operations for courses.
     gradeRoutes.js: Handles CRUD operations for grades.
     studentRoutes.js: Handles CRUD operations for students.
+
+# Modifications for Mini-Project 10:
+
+    - Added HTTPs
+    - JwtAuth token
+    - server keys
+
+
 # Usage
      The backend offers various API endpoints for different operations related to users, students, courses, and grades.
 

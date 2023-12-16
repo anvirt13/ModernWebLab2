@@ -7,6 +7,8 @@ const auth = express.Router(); // Changed the router variable name to auth
 const flash = require('connect-flash');
 auth.use(flash());
 
+
+
 // Session middleware setup
 auth.use(
   session({
@@ -16,6 +18,14 @@ auth.use(
     cookie: { secure: true } // Use 'secure: true' in production with HTTPS
   })
 );
+
+// middleware to check if a user is authenticated
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ error: 'Unauthorized' });
+}
 
 // Initialize Passport
 auth.use(passport.initialize());

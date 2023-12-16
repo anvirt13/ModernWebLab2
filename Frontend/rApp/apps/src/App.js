@@ -3,6 +3,7 @@ import CrudApp from './crudApp.js';
 import './stylesheet.css';
 import LoginForm from './Login/LoginForm.js';
 import RegisterForm from './Login/RegisterForm.js';
+import AddStudentForm from './AddStudent.js';
 
 
 // Functional component using hooks
@@ -10,8 +11,8 @@ function App() {
   const [students, setStudents] = useState([]);
   const [sortByName, setSortByName] = useState(false);
   const [sortByGrade, setSortByGrade] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false); 
-  const [username, setUsername] = useState(''); 
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
 
   const toggleSortByName = () => {
     setSortByName(!sortByName);
@@ -55,9 +56,9 @@ function App() {
       return gradeOrder[a.grade] - gradeOrder[b.grade];
     });
   }
-  
-   // Function to handle successful login
-   const handleSuccessfulLogin = (username) => {
+
+  // Function to handle successful login
+  const handleSuccessfulLogin = (username) => {
     setLoggedIn(true);
     setUsername(username);
   };
@@ -74,10 +75,15 @@ function App() {
       <div className="app-container">
         {loggedIn ? (
           <div>
-            <h3 className='app-subtitle'>Welcome, {username}!             <button className="app-button" onClick={handleLogout}>
+            <h3 className='app-subtitle'>Welcome, {username}!            
+             <button className="app-button" onClick={handleLogout}>
               Logout
             </button></h3>
 
+            <div className="app-container">
+            <AddStudentForm username={username} />
+
+            </div>
           </div>
         ) : (
           <div>
@@ -86,7 +92,7 @@ function App() {
             <RegisterForm />
           </div>
         )}
-    </div>
+      </div>
 
       <div className="app-section">
         <h2>Student Data</h2>
@@ -125,12 +131,13 @@ class StudentList extends Component {
       <ul className="app-file-list">
         {sortedStudents.map((student) => (
           <li key={student.id}>
-            <strong>{student.name}</strong> | Course: {student.course} | Grade: {student.grade}
+            <strong>{student.name}</strong> | Course: {student.course} | Grade: {student.grade} | Posted By: {student.postedBy}
           </li>
         ))}
       </ul>
     );
   }
 }
+
 
 export default App;

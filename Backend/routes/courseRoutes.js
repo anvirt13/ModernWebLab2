@@ -14,8 +14,18 @@ router.post('/courses', async (req, res) => {
   }
 });
 
+// Define the isAuthenticated middleware function
+const isAuthenticated = (req, rs, next) => {
+  // Check if the user is authenticated (you can implement this based on your authentication logic)
+  if (req.isAuthenticated()) {
+    return next(); // User is authenticated, continue to the next middleware/route handler
+  }
+  // If not authenticated, redirect or send an error response
+  res.status(401).json({ error: 'Unauthorized' });
+};
+
 // Get all courses
-router.get('/courses', async (req, res) => {
+router.get('/courses', isAuthenticated, async (req, res) => {
   try {
     const courses = await Course.find();
     res.json(courses);
