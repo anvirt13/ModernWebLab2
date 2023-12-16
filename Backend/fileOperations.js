@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3002;
 
@@ -8,32 +8,25 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const uri = "mongodb+srv://anvirtiwana13:NawlMia123@cluster0.kvtku1u.mongodb.net/";
-let db;
-
-(async function () {
-    try {
-        const client = await MongoClient.connect(uri, { useUnifiedTopology: true });
-        console.log('Connected to MongoDB.');
-        db = client.db("studentData");
-
-    } catch (err) {
-        console.error('Error occurred while connecting to MongoDB:', err);
-    }
-})();
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something broke!' });
+mongoose.connect('mongodb+srv://anvirtiwana13:NawlMia123@cluster0.kvtku1u.mongodb.net/studentData', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-// Importing route files
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB.');
+});
+
+const Course = require('./models/Course');
+const Grade = require('./models/Grade');
+const Student = require('./models/Student');
+
 const courseRoutes = require('./routes/courseRoutes');
 const gradeRoutes = require('./routes/gradeRoutes');
 const studentRoutes = require('./routes/studentRoutes');
 
-// Use route files
 app.use('/api', courseRoutes);
 app.use('/api', gradeRoutes);
 app.use('/api', studentRoutes);
@@ -116,52 +109,35 @@ const v1Router = express.Router();
 
 // API endpoint for students
 v1Router.get('/api/students', async (req, res) => {
-    const collection = db.collection('students');
-
     try {
-        const allStudents = await collection.find().toArray();
-
-        // Sort students by name and grade
-        const sortedStudents = allStudents.sort((a, b) => {
-            // Sort by name first
-            const nameA = a.name.toLowerCase();
-            const nameB = b.name.toLowerCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-
-            // If names are equal, sort by grade
-            if (a.grade < b.grade) return -1;
-            if (a.grade > b.grade) return 1;
-            return 0;
-        });
-
-        res.json(sortedStudents);
+      const allStudents = await Student.find().sort({ name: 1, grade: 1 }).exec();
+      res.json(allStudents);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to retrieve students from the database.' });
+      res.status(500).json({ error: 'Failed to retrieve students from the database.' });
     }
-});
+  });
 
 
 // Add a new student to the database
 v1Router.post('/api/students', async (req, res) => {
     const { name, grade } = req.body;
     if (name && grade) {
-        const newStudent = { name, grade };
-
-        // Add the student to MongoDB
-        const collection = db.collection('students');
-        await collection.insertOne(newStudent);
-
+      try {
+        const newStudent = new Student({ name, grade });
+        await newStudent.save();
         res.json({ message: 'Student added successfully', student: newStudent });
+      } catch (err) {
+        res.status(500).json({ error: 'Could not add the student to the database.' });
+      }
     } else {
-        res.status(400).json({ error: 'Both name and grade are required.' });
+      res.status(400).json({ error: 'Both name and grade are required.' });
     }
-});
+  });
+  
+  app.use('/v1', v1Router);
 
-app.use('/v1', v1Router);
-
-const server = app.listen(port, () => {
+  const server = app.listen(port, () => {
     const serverAddress = server.address();
     const link = `http://localhost:${serverAddress.port}`;
     console.log(`Server is running at ${link}`);
-});
+  });
